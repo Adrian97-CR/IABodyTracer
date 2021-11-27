@@ -14,7 +14,7 @@ code {
 
 body {
   font-family: Arial;
-  color: white;
+  color: black;
 }
 
 .split {
@@ -34,7 +34,7 @@ body {
 
 .right {
   right: 0;
-  background-color: red;
+  background-color: white;
 }
 
 .centered {

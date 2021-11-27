@@ -30,6 +30,7 @@ function App() {
     }, 300);
   };
 
+  let print = ''
   const detect = async (net) => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -47,7 +48,6 @@ function App() {
 
       // Make Detections
       const pose = await net.estimateSinglePose(video);
-      console.log(pose);
 
       drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
     }
@@ -57,11 +57,16 @@ function App() {
     const ctx = canvas.current.getContext("2d");
     canvas.current.width = videoWidth;
     canvas.current.height = videoHeight;
-
+    print = ''
+    pose["keypoints"].forEach(element =>  {
+    if(element.score*100>50){
+      print += element.part +'\n'
+    }
+    });
+    console.log(print);
     drawKeypoints(pose["keypoints"], 0.6, ctx);
     drawSkeleton(pose["keypoints"], 0.7, ctx);
   };
-
   runPosenet();
 
   return (
@@ -97,9 +102,10 @@ function App() {
         </div>
 
         <div class="split right">
+            <h2>Puntos encontrados
+              
+            </h2>
           <div class="centered">
-            <h2>John Doe</h2>
-            <p>Some text here too.</p>
           </div>
         </div>
             
